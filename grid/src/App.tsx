@@ -1,5 +1,16 @@
-import styles from "./App.module.css";
-import { useDataApiHook } from "./table/data-api.hook";
+import "./globals.css";
+import { useDataApiHook } from "./hooks/data-api.hook";
+
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 function App() {
   const usersUrl = "https://jsonplaceholder.typicode.com/users";
 
@@ -7,18 +18,33 @@ function App() {
 
   return (
     <>
-      Loading: {loading.toString()} Error: {error} Data: {data.length}
       <style>!styleMacroReplace!</style>
-      <div className={styles.logo}>Hi from Vite!</div>
-      {loading ? <div className={styles.logo}>Loading...</div> : null}
-      {error !== null ? <div className={styles.logo}>Error</div> : null}
-      <div>
-        List
-        <ul>
-          {data.map((user: any) => (
-            <li key={user.id}>{user.name}</li>
-          ))}
-        </ul>
+      <div className='app dark'>
+        {loading ? <div>Loading...</div> : null}
+        {error !== null ? <div>Error</div> : null}
+        {data.length !== 0 ? (
+          <div>
+            <Table >
+              <TableCaption>A list of users.</TableCaption>
+              <TableHeader className='bg-blue-900 text-blue-100'>
+                <TableRow>
+                  <TableHead className='w-[100px] text-blue-100'>ID</TableHead>
+                  <TableHead className="text-blue-100">Name</TableHead>
+                  <TableHead className="text-blue-100">UserName</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell className='font-medium'>{user.id}</TableCell>
+                    <TableCell>{user.name}</TableCell>
+                    <TableCell>{user.username}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        ) : null}
       </div>
     </>
   );

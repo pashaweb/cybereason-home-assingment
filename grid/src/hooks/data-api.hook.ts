@@ -1,17 +1,16 @@
+import { User } from "@/types";
 import { useEffect, useReducer } from "react";
 
 type State = {
-    data: any[];
+    data: User[];
     loading: boolean;
     error: string | null;
-}
-
-
+};
 
 type Action = {
     type: 'FETCH' | 'FETCH_SUCCESS' | 'FETCH_ERROR';
     payload: any;
-}
+};
 
 const reduser = (state: State, action: Action) => {
     switch (action.type) {
