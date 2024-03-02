@@ -1,24 +1,24 @@
 /// <reference types="vitest" />
 import react from "@vitejs/plugin-react-swc";
-import * as fs from "fs";
 import path from "path";
 
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
+
 const buildDir = "dist";
-const outputName = "grid-v_" + process.env.npm_package_version;
-
 const cssInjector = async () => {
-  const scriptPath = path.join(__dirname, buildDir, `${outputName}.es.js`);
-  const stylePath = path.join(__dirname, buildDir, `${outputName}.css`);
-  let scriptText = await fs.promises.readFile(scriptPath, "utf-8");
-  let styleText = await fs.promises.readFile(stylePath, "utf-8");
-  const scriptSplit = scriptText.split('"!styleMacroReplace!"');
-  scriptText = scriptSplit[0] + "`" + styleText + "`" + scriptSplit[1];
-  await fs.promises.writeFile(scriptPath, scriptText);
+  // const scriptPath = path.join(__dirname, buildDir, `${outputName}.es.js`);
+  // const stylePath = path.join(__dirname, buildDir, `${outputName}.css`);
+  // let scriptText = await fs.promises.readFile(scriptPath, "utf-8");
+  // let styleText = await fs.promises.readFile(stylePath, "utf-8");
+  // const scriptSplit = scriptText.split('"!styleMacroReplace!"');
+  // scriptText = scriptSplit[0] + "`" + styleText + "`" + scriptSplit[1];
+  // await fs.promises.writeFile(scriptPath, scriptText);
 };
-
-// https://vitejs.dev/config/
-export default defineConfig({
+//@ts-expect-error
+export default ({mode}) => {  
+  const env = loadEnv(mode, process.cwd());
+  const outputName = `${env.VITE_APP_NAME}-v_${env.VITE_APP_VERSION}`;
+  return defineConfig({
   plugins: [
     react(),
     {
@@ -40,7 +40,6 @@ export default defineConfig({
       input: "src/main-wc.ts",
       output: {
         entryFileNames: `${outputName}.[format].js`,
-        chunkFileNames: `${outputName}.[format].js`,
         assetFileNames: `${outputName}.[ext]`,
       },
     },
@@ -56,3 +55,6 @@ export default defineConfig({
     setupFiles: "./setupTests.js",
   },
 });
+};
+// https://vitejs.dev/config/
+

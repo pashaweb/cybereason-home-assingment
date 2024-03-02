@@ -10,16 +10,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useEffect, useRef } from "react";
+import { wcCssLoaderHook } from "./hooks/wcCssLoaderHook";
 
 function App() {
   const usersUrl = "https://jsonplaceholder.typicode.com/users";
 
   const { loading, error, data } = useDataApiHook(usersUrl, []);
-
+  const el = useRef<HTMLDivElement | null>(null); 
+  useEffect(() => {
+    if (el.current !== null) {
+      wcCssLoaderHook(el.current);
+    }
+  }, [el]);
   return (
     <>
-      <style>!styleMacroReplace!</style>
-      <div className='app dark'>
+      
+      <div className='app dark' ref={el}>
         {loading ? <div>Loading...</div> : null}
         {error !== null ? <div>Error</div> : null}
         {data.length !== 0 ? (
