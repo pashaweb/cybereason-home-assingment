@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import react from "@vitejs/plugin-react-swc";
 import * as fs from "fs";
 import path from "path";

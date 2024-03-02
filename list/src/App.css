@@ -1,0 +1,43 @@
+.app {
+  --french-violet: #731dd8ff;
+  --verdigris: #48a9a6ff;
+  --timberwolf: #e4dfdaff;
+  --ecru: #d4b483ff;
+  --indian-red: #c1666bff;
+  
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: var(--ecru);
+  color: var(--french-violet);
+
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--rench-violet);
+  }
+  .items{
+   li{
+    list-style: none;
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: var(--verdigris);
+    color: var(--timberwolf);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content:start;
+    align-items: center;
+    gap : 1rem;
+    
+   }
+   li:nth-child(2n){
+    background-color: var(--timberwolf);
+    color: var(--verdigris);
+  }
+
+  }
+}
+
